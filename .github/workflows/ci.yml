@@ -51,8 +51,8 @@ jobs:
         uses: MunifTanjim/luver-action@v1
       - name: install lua
         run: |
-          luver install lua 5.1
-          luver use lua 5.1
+          luver install lua 5.1.1
+          luver use lua 5.1.1
           luver install luarocks 3.11.1
 
       - name: run test
