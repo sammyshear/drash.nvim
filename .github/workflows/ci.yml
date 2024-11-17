@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Ci
 
 on: [push]
@@ -46,13 +47,12 @@ jobs:
           neovim: true
           version: nightly
 
-      - name: luajit
-        uses: leafo/gh-actions-lua@v10
-        with:
-          luaVersion: "luajit-openresty"
-
-      - name: luarocks
-        uses: leafo/gh-actions-luarocks@v4
+      - name: lua setup
+        uses: MunifTanjim/luver-action@v1
+        run: |
+          luver install lua 5.1
+          luver use lua 5.1
+          luver install luarocks 3.11.1
 
       - name: run test
         shell: bash

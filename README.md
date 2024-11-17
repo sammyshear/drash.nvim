@@ -1,5 +1,7 @@
 # drash.nvim
 
+[![Ci](https://github.com/sammyshear/drash.nvim/actions/workflows/ci.yml/badge.svg)](https://github.com/sammyshear/drash.nvim/actions/workflows/ci.yml)
+
 A Neovim plugin for helping to write a Drash/D'var Torah in without leaving Neovim. It relies on the Sefaria API to provide info on the Parsha and any supporting texts you might need.
 
 ## Development
