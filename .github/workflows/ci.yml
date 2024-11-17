@@ -47,8 +47,9 @@ jobs:
           neovim: true
           version: nightly
 
-      - name: lua setup
+      - name: luver setup
         uses: MunifTanjim/luver-action@v1
+      - name: install lua
         run: |
           luver install lua 5.1
           luver use lua 5.1
