@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local sefaria = require('drash.sefaria')
 
 describe('sefaria', function()
