@@ -1,9 +1,10 @@
-*drash.txt*            For NVIM v0.8.0           Last change: 2024 November 17
+*drash.txt*            For NVIM v0.8.0           Last change: 2024 November 18
 
 ==============================================================================
 Table of Contents                                    *drash-table-of-contents*
 
 1. drash.nvim                                               |drash-drash.nvim|
+  - Installation                               |drash-drash.nvim-installation|
   - Development                                 |drash-drash.nvim-development|
 2. Links                                                         |drash-links|
 
@@ -12,9 +13,26 @@ Table of Contents                                    *drash-table-of-contents*
 
 <https://github.com/sammyshear/drash.nvim/actions/workflows/ci.yml>
 
-A Neovim plugin for helping to write a Drash/D’var Torah in without leaving
+A Neovim plugin for helping to write a Drash/D’var Torah without leaving
 Neovim. It relies on the Sefaria API to provide info on the Parsha and any
 supporting texts you might need.
+
+
+INSTALLATION                                   *drash-drash.nvim-installation*
+
+
+LAZY.NVIM ~
+
+>lua
+    {
+      "sammyshear/drash.nvim",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+      },
+      opts = {}
+    }
+<
 
 
 DEVELOPMENT                                     *drash-drash.nvim-development*
