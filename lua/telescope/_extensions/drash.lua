@@ -5,15 +5,12 @@ local finders = require('telescope.finders')
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 local previewers = require('telescope.previewers')
-local make_entry = require('telescope.make_entry')
 local conf = require('telescope.config').values
 
 local M = {}
 
 M.search_sefaria = function(opts)
   opts = opts or { prompt = '' }
-  opts.entry_maker = make_entry.gen_from_string(opts)
-  print(opts.prompt)
 
   local searcher = function(prompt)
     if not prompt or prompt == '' then
@@ -25,12 +22,7 @@ M.search_sefaria = function(opts)
       return {}
     end
 
-    local hits = search_list.hits.hits
-    for i, hit in ipairs(search_list.hits.hits) do
-      hits[i] = hit._id
-    end
-
-    return hits
+    return search_list.hits.hits
   end
 
   pickers
@@ -38,18 +30,25 @@ M.search_sefaria = function(opts)
       prompt_title = 'Search Sefaria',
       finder = finders.new_table({
         results = searcher(opts.prompt),
-        entry_maker = opts.entry_maker,
+        entry_maker = function(entry)
+          return {
+            value = entry,
+            display = entry._id or entry.id,
+            ordinal = entry._id or entry.id,
+          }
+        end,
       }),
       attach_mappings = function(prompt_bufnr)
         actions.select_default:replace(function()
           local selected = action_state.get_selected_entry()
-          print(vim.inspect(selected))
           actions.close(prompt_bufnr)
           if selected == nil then
             return
           end
 
-          local response = require('drash.sefaria').get_text(selected[1])
+          local response = require('drash.sefaria').get_text(
+            selected.value._source.ref or selected.value.source.ref
+          )
           local text = {}
           if response == nil then
             text = { 'Error fetching text' }
@@ -68,7 +67,8 @@ M.search_sefaria = function(opts)
       end,
       previewer = previewers.new_buffer_previewer({
         define_preview = function(self, entry)
-          local response = require('drash.sefaria').get_text(entry[1])
+          local response =
+            require('drash.sefaria').get_text(entry.value._source.ref or entry.value.source.ref)
           local text = {}
           if response == nil then
             text = { 'Error fetching text' }
