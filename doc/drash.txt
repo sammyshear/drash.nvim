@@ -1,4 +1,4 @@
-*drash.txt*            For NVIM v0.8.0           Last change: 2024 November 18
+*drash.txt*            For NVIM v0.8.0           Last change: 2024 November 19
 
 ==============================================================================
 Table of Contents                                    *drash-table-of-contents*
