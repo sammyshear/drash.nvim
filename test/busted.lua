@@ -6,6 +6,7 @@ load(vim.fn.system('curl -s https://raw.githubusercontent.com/folke/lazy.nvim/ma
 -- Setup lazy.nvim
 require('lazy.minit').busted({
   spec = {
+    'lunarmodules/luacov',
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
   },
