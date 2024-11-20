@@ -63,7 +63,7 @@ jobs:
       - name: run test
         shell: bash
         run: |
-          busted ./test
+          busted -c -v ./test
 
       - name: Report test coverage
         if: success()
