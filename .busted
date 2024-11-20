@@ -1,8 +1,7 @@
 return {
   _all = {
-    coverage = false,
     lpath = 'lua/?.lua;lua/?/init.lua',
-    lua = './test/busted.lua',
+    lua = 'nlua',
   },
   default = {
     verbose = true,
