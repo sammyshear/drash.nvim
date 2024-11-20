@@ -58,6 +58,7 @@ jobs:
         run: |
           luarocks install luacheck
           luarocks install busted
+          luarocks install luacov
           luarocks install luacov-coveralls
 
       - name: run test
