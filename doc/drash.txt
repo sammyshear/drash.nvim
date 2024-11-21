@@ -33,7 +33,7 @@ LAZY.NVIM ~
       },
       opts = {
         -- default is english
-        text_langauge = "english",
+        text_language = "english",
       }
     }
 <
