@@ -2,7 +2,6 @@
 
 ![GitHub License](https://img.shields.io/github/license/sammyshear/drash.nvim?style=for-the-badge)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/sammyshear/drash.nvim/ci.yml?style=for-the-badge)
-![Coveralls](https://img.shields.io/coverallsCoverage/github/sammyshear/drash.nvim?style=for-the-badge)
 
 A Neovim plugin for helping to write a Drash/D'var Torah without leaving Neovim. It relies on the Sefaria API to provide info on the Parsha and any supporting texts you might need.
 
