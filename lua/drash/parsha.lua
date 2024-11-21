@@ -1,7 +1,7 @@
 local sefaria = require('drash.sefaria')
 local M = {}
 
-M.parsha = function()
+M.parsha = function(opts)
   local calendar = sefaria.get_calendar()
   if calendar == nil then
     return nil
@@ -15,7 +15,7 @@ M.parsha = function()
     end
   end
 
-  local parsha = sefaria.get_text(parsha_ref)
+  local parsha = sefaria.get_text(opts.text_language, parsha_ref)
   if parsha == nil then
     return nil
   end

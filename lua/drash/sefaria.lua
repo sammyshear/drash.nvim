@@ -56,12 +56,12 @@ M.post_find_refs = function(title, body)
   return data
 end
 
-M.get_text = function(ref)
+M.get_text = function(text_language, ref)
   ref = drash_utils.url_encode(ref)
   local url = 'https://www.sefaria.org/api/v3/texts/' .. ref
 
   local response = plenary_curl.get(url, {
-    query = { version = 'english', return_format = 'text_only' },
+    query = { version = text_language, return_format = 'text_only' },
   })
 
   if response.status ~= 200 then

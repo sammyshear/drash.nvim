@@ -10,7 +10,7 @@ local conf = require('telescope.config').values
 local M = {}
 
 M.search_sefaria = function(opts)
-  opts = opts or { prompt = '' }
+  opts = opts or { prompt = '', opts.text_language }
 
   local searcher = function(prompt)
     if not prompt or prompt == '' then
@@ -47,6 +47,7 @@ M.search_sefaria = function(opts)
           end
 
           local response = require('drash.sefaria').get_text(
+            opts.text_language,
             selected.value._source.ref or selected.value.source.ref
           )
           local text = {}
@@ -67,8 +68,10 @@ M.search_sefaria = function(opts)
       end,
       previewer = previewers.new_buffer_previewer({
         define_preview = function(self, entry)
-          local response =
-            require('drash.sefaria').get_text(entry.value._source.ref or entry.value.source.ref)
+          local response = require('drash.sefaria').get_text(
+            opts.text_language,
+            entry.value._source.ref or entry.value.source.ref
+          )
           local text = {}
           if response == nil then
             text = { 'Error fetching text' }
@@ -85,7 +88,10 @@ M.search_sefaria = function(opts)
 end
 
 M.browse_commentaries = function(opts)
-  opts = opts or { commentaries = {} }
+  opts = opts or {
+    commentaries = {},
+    text_language = 'english',
+  }
 
   pickers
     .new(opts, {
@@ -101,7 +107,7 @@ M.browse_commentaries = function(opts)
             return
           end
 
-          local response = require('drash.sefaria').get_text(selected.value)
+          local response = require('drash.sefaria').get_text(opts.text_language, selected.value)
           local text = {}
           if response == nil then
             text = { 'Error fetching text' }
@@ -126,7 +132,7 @@ M.browse_commentaries = function(opts)
       end,
       previewer = previewers.new_buffer_previewer({
         define_preview = function(self, entry)
-          local response = require('drash.sefaria').get_text(entry.value)
+          local response = require('drash.sefaria').get_text(opts.text_language, entry.value)
           local text = {}
           if response == nil then
             text = { 'Error fetching text' }
@@ -149,11 +155,6 @@ M.browse_commentaries = function(opts)
 end
 
 return telescope.register_extension({
-  setup = function()
-    vim.api.nvim_create_user_command('SearchSefaria', function(opts)
-      M.search_sefaria({ prompt = opts.args })
-    end, { nargs = '?' })
-  end,
   exports = {
     search_sefaria = M.search_sefaria,
     browse_commentaries = M.browse_commentaries,
