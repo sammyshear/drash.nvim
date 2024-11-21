@@ -84,6 +84,70 @@ M.search_sefaria = function(opts)
     :find()
 end
 
+M.browse_commentaries = function(opts)
+  opts = opts or { commentaries = {} }
+
+  pickers
+    .new(opts, {
+      prompt_title = 'Browse Commentaries',
+      finder = finders.new_table({
+        results = opts.commentaries,
+      }),
+      attach_mappings = function(prompt_bufnr)
+        actions.select_default:replace(function()
+          local selected = action_state.get_selected_entry()
+          actions.close(prompt_bufnr)
+          if selected == nil then
+            return
+          end
+
+          local response = require('drash.sefaria').get_text(selected.value)
+          local text = {}
+          if response == nil then
+            text = { 'Error fetching text' }
+          elseif
+            response.versions ~= nil
+            and response.versions[1] ~= nil
+            and response.versions[1].text ~= nil
+          then
+            text = require('telescope.utils').flatten({ response.versions[1].text })
+          else
+            text = { 'No text found' }
+          end
+          local bufnr = vim.api.nvim_create_buf(true, true)
+          vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, text)
+          vim.api.nvim_set_option_value('modifiable', false, { buf = bufnr })
+          vim.api.nvim_open_win(bufnr, true, {
+            split = 'right',
+            win = 0,
+          })
+        end)
+        return true
+      end,
+      previewer = previewers.new_buffer_previewer({
+        define_preview = function(self, entry)
+          local response = require('drash.sefaria').get_text(entry.value)
+          local text = {}
+          if response == nil then
+            text = { 'Error fetching text' }
+          elseif
+            response.versions ~= nil
+            and response.versions[1] ~= nil
+            and response.versions[1].text ~= nil
+          then
+            text = require('telescope.utils').flatten({ response.versions[1].text })
+          else
+            text = { 'No text found' }
+          end
+          self.state.bufnr = self.state.bufnr or vim.api.nvim_get_current_buf()
+          vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, text)
+        end,
+      }),
+      sorter = conf.generic_sorter(opts),
+    })
+    :find()
+end
+
 return telescope.register_extension({
   setup = function()
     vim.api.nvim_create_user_command('SearchSefaria', function(opts)
@@ -92,5 +156,6 @@ return telescope.register_extension({
   end,
   exports = {
     search_sefaria = M.search_sefaria,
+    browse_commentaries = M.browse_commentaries,
   },
 })

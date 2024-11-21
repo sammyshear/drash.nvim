@@ -56,13 +56,27 @@ M.post_find_refs = function(title, body)
   return data
 end
 
-M.get_text = function(id)
-  id = drash_utils.url_encode(id)
-  local url = 'https://www.sefaria.org/api/v3/texts/' .. id
+M.get_text = function(ref)
+  ref = drash_utils.url_encode(ref)
+  local url = 'https://www.sefaria.org/api/v3/texts/' .. ref
 
   local response = plenary_curl.get(url, {
     query = { version = 'english', return_format = 'text_only' },
   })
+
+  if response.status ~= 200 then
+    return nil
+  end
+
+  local data = vim.fn.json_decode(response.body)
+  return data
+end
+
+M.get_related = function(ref)
+  ref = drash_utils.url_encode(ref)
+  local url = 'https://www.sefaria.org/api/related/' .. ref
+
+  local response = plenary_curl.get(url)
 
   if response.status ~= 200 then
     return nil
