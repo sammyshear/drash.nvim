@@ -16,9 +16,19 @@ A Neovim plugin for helping to write a Drash/D'var Torah without leaving Neovim.
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
   },
-  opts = {}
+  opts = {
+    -- default is english
+    text_langauge = "english",
+  }
 }
 ```
+
+## Usage
+
+The plugin provides a command `Parsha` which will open the Parsha for the week and give you a buffer user command `Commentaries` which will allow you to telescope pick between commentaries on the Parsha.
+
+The plugin also provides the `SearchSefaria` command which allows you to make use of the Sefaria ElasticSearch API to search any texts on the website for arbitrary queries.
+The command takes an argument that is your search query and opens a telescope picker to allow you to select the text you want to see.
 
 ## Development
 
