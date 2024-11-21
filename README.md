@@ -18,7 +18,7 @@ A Neovim plugin for helping to write a Drash/D'var Torah without leaving Neovim.
   },
   opts = {
     -- default is english
-    text_langauge = "english",
+    text_language = "english",
   }
 }
 ```
