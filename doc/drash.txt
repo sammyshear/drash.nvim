@@ -1,4 +1,4 @@
-*drash.txt*            For NVIM v0.8.0           Last change: 2024 November 21
+*drash.txt*             For NVIM v0.8.0             Last change: 2025 April 09
 
 ==============================================================================
 Table of Contents                                    *drash-table-of-contents*
@@ -8,6 +8,8 @@ Table of Contents                                    *drash-table-of-contents*
   - Usage                                             |drash-drash.nvim-usage|
   - Development                                 |drash-drash.nvim-development|
 2. Links                                                         |drash-links|
+
+  Please use sefaria.nvim <https://github.com/sammyshear/sefaria.nvim> instead.
 
 ==============================================================================
 1. drash.nvim                                               *drash-drash.nvim*
