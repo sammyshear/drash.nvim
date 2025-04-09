@@ -1,3 +1,5 @@
+> Please use [sefaria.nvim](https://github.com/sammyshear/sefaria.nvim) instead.
+
 # drash.nvim
 
 ![GitHub License](https://img.shields.io/github/license/sammyshear/drash.nvim?style=for-the-badge)
